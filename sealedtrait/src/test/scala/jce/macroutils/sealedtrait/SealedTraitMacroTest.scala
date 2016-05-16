@@ -5,11 +5,7 @@ import org.scalatest.{FlatSpec, ShouldMatchers}
 
 
 class SealedTraitMacroTest extends FlatSpec with ShouldMatchers {
-
   "sealedtrait values macro" should "get all sealed trait values" in {
-    v should have size 2
+    values[Foo] should have size 2
   }
-
-  def v = values[Foo]
-
 }
