@@ -22,7 +22,7 @@ private object ValuesMacro {
     val s = weakTypeOf[T].typeSymbol
     ensureSealed(c)(s)
     val subClasses: List[c.universe.Symbol] = s.asClass.knownDirectSubclasses.toList
-    val modules = subClasses.filter(_.isModuleClass).map(c => Ident(c.asClass.module))
+    val modules = subClasses.filter(_.isModuleClass).map(x => Ident(x.asClass.module))
     c.Expr[Set[T]](q"Set[$s]($modules: _*)")
   }
 }
@@ -34,7 +34,7 @@ private object EnclosedMacro {
     val s = weakTypeOf[T].typeSymbol
     ensureSealed(c)(s)
     val subSymbols: List[c.universe.Symbol] = c.internal.enclosingOwner.owner.typeSignature.decls.toList
-    val modules = subSymbols.filter(_.isModule).map(x => Ident(x))
+    val modules = subSymbols.filter(_.isModule).map(Ident(_))
     c.Expr[Set[T]](q"Set[$s]($modules: _*)")
   }
 }
